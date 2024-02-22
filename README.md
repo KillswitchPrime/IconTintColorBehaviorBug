@@ -13,6 +13,7 @@ Steps to reproduce:
 9. App crashes
 
 Exception thrown:
+
 System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation.
  ---> System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation.
  ---> System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation.
