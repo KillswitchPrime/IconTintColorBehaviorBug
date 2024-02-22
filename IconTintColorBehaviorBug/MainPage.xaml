@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:models="clr-namespace:IconTintColorBehaviorBug.Models"
+             x:Class="IconTintColorBehaviorBug.MainPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:Key="IconGroupTemplate" x:DataType="models:IconGroup">
+                <Border
+                    HeightRequest="100"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Start"
+                    InputTransparent="True"
+                    StrokeThickness="2"
+                    WidthRequest="350"
+                    Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                    Background="Transparent">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="125" />
+                    </Border.StrokeShape>
+                    <Grid RowSpacing="8" ColumnSpacing="8">
+                        <Label Text="{Binding Name}"
+                               HorizontalTextAlignment="Center"/>
+                        
+                        <CollectionView
+                            ItemsSource="{Binding IconTemplates}"
+                            ItemTemplate="{StaticResource IconTintTemplate}"
+                            ItemsLayout="HorizontalList"
+                            HorizontalOptions="Center">
+                        </CollectionView>
+                    </Grid>
+                </Border>
+            </DataTemplate>
+            <DataTemplate x:Key="IconTintTemplate" x:DataType="models:IconTemplate">
+                <Border
+                    HeightRequest="50"
+                    HorizontalOptions="Center"
+                    InputTransparent="True"
+                    StrokeThickness="2"
+                    WidthRequest="50"
+                    Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                    Background="Transparent">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="25" />
+                    </Border.StrokeShape>
+                    <Image
+                        Source="{Binding IconUrl}"
+                        HeightRequest="40"
+                        Aspect="AspectFit"
+                        SemanticProperties.Description="dot net bot in a race car number eight" >
+                        <Image.Behaviors>
+                            <toolkit:IconTintColorBehavior TintColor="{AppThemeBinding Light={StaticResource MidnightBlue}, Dark={StaticResource Magenta}}" />
+                        </Image.Behaviors>
+                    </Image>
+                </Border>
+            </DataTemplate>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <VerticalStackLayout
+            Padding="30,0"
+            Spacing="25">
+            <Label x:Name="MemoryLabel"/>
+            
+            <CollectionView
+                ItemTemplate="{StaticResource IconGroupTemplate}"
+                ItemsSource="{Binding IconGroups}"
+                SelectionChangedCommand="{Binding GoToGroupCommand}"
+                SelectionChangedCommandParameter="{Binding Source={RelativeSource Self}, Path=SelectedItem}"
+                SelectionMode="Single"
+                x:Name="LeakyView">
+                <CollectionView.EmptyView>
+                    <Image
+                        Source="dotnet_bot.png"
+                        HeightRequest="185"
+                        Aspect="AspectFit"
+                        SemanticProperties.Description="dot net bot in a race car number eight">
+                        <Image.Behaviors>
+                            <toolkit:IconTintColorBehavior TintColor="{AppThemeBinding Light={StaticResource Gray600}, Dark={StaticResource Gray100}}" />
+                        </Image.Behaviors>
+                    </Image>
+                </CollectionView.EmptyView>
+            </CollectionView>
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:models="clr-namespace:IconTintColorBehaviorBug.Models"
+             x:Class="IconTintColorBehaviorBug.SubPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:Key="IconTintTemplate" x:DataType="models:IconTemplate">
+                <Border
+                    HeightRequest="150"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Start"
+                    InputTransparent="True"
+                    StrokeThickness="2"
+                    WidthRequest="350"
+                    Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                    Background="Transparent">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="125" />
+                    </Border.StrokeShape>
+                    <Image
+                        Source="{Binding IconUrl}"
+                        HeightRequest="185"
+                        Aspect="AspectFit"
+                        SemanticProperties.Description="dot net bot in a race car number eight" >
+                        <Image.Behaviors>
+                            <toolkit:IconTintColorBehavior TintColor="{AppThemeBinding Light={StaticResource MidnightBlue}, Dark={StaticResource Magenta}}" />
+                        </Image.Behaviors>
+                    </Image>
+                </Border>
+            </DataTemplate>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        
+        <VerticalStackLayout>
+            <Label x:Name="MemoryLabel"/>
+                
+            <CollectionView
+                ItemTemplate="{StaticResource IconTintTemplate}"
+                ItemsSource="{Binding IconTemplates}"
+                x:Name="LeakyView">
+            </CollectionView>
+            
+        </VerticalStackLayout>
+    </ContentPage.Content>
+</ContentPage>
