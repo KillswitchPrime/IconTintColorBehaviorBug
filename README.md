@@ -1,3 +1,5 @@
+# THIS HAS BEEN FIXED BY [PR #1883](https://github.com/CommunityToolkit/Maui/pull/1883) 🎉🎉
+
 # IconTintColorBehaviorBug
 Minimum reproducible example repo for showcasing bug in IconTintColorBehavior in CommunityToolkit.
 
